@@ -1,0 +1,122 @@
+
+#container_head{
+ text-align: center;
+}
+#head{
+    display: inline-block;
+    text-align:center;
+}
+#logo {
+    display: block;
+    margin: auto;
+    height: 40px;
+}
+
+#website_name{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#website_motto{
+    margin-top: 0px;
+}
+#menu{
+    text-align:left;
+    display: inline-block;
+    vertical-align: top;
+}
+.menu{
+    list-style-type: none;
+}
+#nav_container{
+    display: none;
+}
+#radio_container{
+    display: inline-block;
+    vertical-align: top;
+}
+#radio_indicator{
+    display: block;
+}
+#radio{
+    display: block;
+}
+#member_other_pages{
+    vertical-align: bottom;
+}
+#member_other_pages{
+    vertical-align: bottom;
+}
+#fav_search{
+    vertical-align: bottom;
+    display: inline-block;
+}
+#main{
+    text-align: center;
+    display: inline-block;
+    width:78%;
+    overflow-y: auto;
+    border: 1px solid darkgrey;
+    background-image: url(/images/solid.png);
+}
+.promo_cover{
+    width:40%;
+    height:100px;
+}
+#bio_cont{
+    border: solid;
+}
+#lyric_cont{
+    border: solid;
+}
+.wrapper{ width: 350px; padding: 20px; }
+.album_art {
+    text-align: center;
+    display: inline-block;
+    width:18%;
+    height: 270px;
+    vertical-align: top;
+    margin: 5px;
+    border: inset;
+}
+.album {
+    width: 100%;
+    margin:auto;
+}
+.pix {
+    width:100%;
+    height: 180px;
+}
+#download_link{
+    border-radius: 5px;
+    border-top: inset;
+}
+a {text-decoration: none}
+#side{
+    text-align: center;
+    display: inline-block;
+    width:20%;
+    height: 850px;
+    overflow-y: auto;
+    vertical-align: top;
+}
+#ipolowo{
+    width:100%;
+    height: 200px;
+}
+.arowo_google{
+    width:100%;
+    height: 200px;
+}
+#footer{
+    text-align:center;
+}
+.social {
+    display: inline-block;
+}
+.arowoyin{
+    width:100%;
+    height: 100%;
+}
+
+
+
