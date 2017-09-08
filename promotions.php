@@ -223,14 +223,7 @@
                         mysqli_stmt_bind_param($stmt, "sssssss",$aNAME,$phone,$email,$sNAME,$img_dir,$songNAME,$target_file);
                         mysqli_stmt_execute($stmt);
                         mysqli_stmt_close($stmt);
-
-                        $query = "SELECT * FROM music_promotion ";
-                        $stmt = mysqli_query ($dbc,$query);
-
-                        $row=mysqli_fetch_array($stmt);
-                            if ($aNAME==$row['artiste_name']) {
                                 echo 'Here is the link to your song: <a href="promo_uploads.php?redirect="' . $row["artiste_name"] . '">promo_uploads.php?redirect="' . $row["artiste_name"] . '"</a> ';
-                            }
                     } else {
                         echo '<span style="color:red;">*Sorry, there was an error uploading your file.</span>';
                     }
