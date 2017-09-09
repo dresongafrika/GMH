@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "root";
-$pass = "people@8624";
+$pass = "";
 $db_name = "gospel_music_hotspot";
 
 $dbc = mysqli_connect($host,$user,$pass,$db_name)

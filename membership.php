@@ -35,16 +35,15 @@
                 } else{
                     // Prepare a select statement
 
-                    $query = "SELECT artiste_name FROM members";
-                    $stmt = mysqli_query ($dbc,$query);
-                    while ($row=mysqli_fetch_array($stmt)){
-                    // Set parameters
-                        $param_username = trim($_POST["user_name"]);
-                            if($param_username == $row['artiste_name']){
-                                $username_err = "This user_name is already taken.";
-                            } else{
-                            $uName = trim($_POST["user_name"]);
-                            }
+                    $user_name = trim($_POST['user_name']);
+                    $query = "SELECT artiste_name FROM members WHERE artiste_name = '$user_name'";
+                    $stmt = mysqli_query($dbc,$query);
+                    
+                    if($stmt && mysqli_num_rows($stmt) > 0){
+                        $username_err = "This user_name is already taken.";
+                    }
+                    else{
+                        $uName = $user_name;
                     }
                     if(empty($password_err) && empty($confirm_password_err)){
                         // Validate password
@@ -65,11 +64,15 @@
                                 $confirm_password_err = 'Password did not match.';
                             }else{
                                 $param_password = password_hash($pWord, PASSWORD_DEFAULT); // Creates a password hash
-                                $query = "INSERT INTO members (artiste_id,artiste_name,password) VALUES (NULL,?,?)";
+                                $username_hash = password_hash($uName, PASSWORD_DEFAULT); // Creates a password hash
+                                $query = "INSERT INTO members (artiste_id,artiste_name,password,identifier) VALUES (0,?,?,?)";
                                 $stmt = mysqli_prepare($dbc, $query);
-                                mysqli_stmt_bind_param($stmt, "ss",$uName,$param_password);
+                                mysqli_stmt_bind_param($stmt,'sss',$uName,$param_password,$username_hash);
+                                
                                 mysqli_stmt_execute($stmt);
+                                
                                 mysqli_stmt_close($stmt);
+                                
                             }
                         }
                     }
@@ -81,7 +84,7 @@
                     <form enctype="multipart/form-data" action="'. htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
                     <div class="form-group">
                         <label>Stage_name:<sup>*</sup></label>
-                        <input type="text" name="user_name" class="form-control" value="';echo $uName; echo'">
+                        <input type="text" name="user_name" class="form-control" value="';echo $_POST['user_name']; echo'">
                         <span class="help-block">'; echo $username_err; echo'</span>
                     </div>
                 <div class="form-group">
@@ -106,7 +109,7 @@
                             Please proceed to pay.
                             <input type="hidden" name="v_merchant_id" value="demo" />
                             <input type="hidden" name="memo" value="payment for promotional song upload" />
-                            <input type="hidden" name="success_url" value="http://www.gospelmusichotspot.com/member_create.php?pay=yes&username=<?php echo $uName; ?>" />
+                            <input type="hidden" name="success_url" value="http://localhost/gmh/member_create.php?pay=yes&i=<?php echo $username_hash; ?>" />
                             <input type="hidden" name="fail_url" value="http://www.gospelmusichotspot.com/member_create.php?pay=no" />
 							<input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/member_create.php?" />
                             <input type="hidden" name="cur" value="NGN" />

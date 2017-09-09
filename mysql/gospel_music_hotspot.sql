@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2017 at 05:42 PM
--- Server version: 5.7.14
--- PHP Version: 7.0.10
+-- Generation Time: Sep 09, 2017 at 10:55 PM
+-- Server version: 5.7.11
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -52,7 +52,7 @@ CREATE TABLE `advertisement` (
   `phone_number` varchar(120) NOT NULL,
   `email` varchar(120) NOT NULL,
   `prog_url` varchar(120) NOT NULL,
-  `upload_date` timestamp NOT NULL
+  `upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -63,7 +63,7 @@ CREATE TABLE `advertisement` (
 
 CREATE TABLE `contact_us` (
   `message_id` int(50) NOT NULL,
-  `message_date` timestamp NOT NULL,
+  `message_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `guest_name` varchar(120) NOT NULL,
   `message_link` varchar(120) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -102,8 +102,17 @@ CREATE TABLE `members` (
   `artiste_name` varchar(120) NOT NULL,
   `password` varchar(120) DEFAULT NULL,
   `membership_date` timestamp NULL DEFAULT NULL,
-  `expiry_date` timestamp NULL DEFAULT NULL
+  `expiry_date` timestamp NULL DEFAULT NULL,
+  `identifier` varchar(120) NOT NULL,
+  `transaction_id` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`artiste_id`, `first_name`, `last_name`, `dob`, `born_again`, `sex`, `country`, `phone`, `email`, `address`, `fb_link`, `twitter_link`, `artiste_name`, `password`, `membership_date`, `expiry_date`, `identifier`, `transaction_id`) VALUES
+(75, NULL, NULL, NULL, NULL, 'MALE', NULL, NULL, NULL, NULL, NULL, NULL, 'tomiiide1', '$2y$10$0jPlwQ2OY1fxN92mZYArTONtlwwgUUZxp/K0.cmcaJrZs49DTpiZW', '2017-09-09 20:54:29', '2017-09-09 20:54:29', '$2y$10$zjh8MMaSRMhXREWyJoum2uaqRinb1ftCNH.U82rJ7r6Nir4y.1bda', 'demo-59b44f2f9911b');
 
 -- --------------------------------------------------------
 
@@ -135,7 +144,7 @@ CREATE TABLE `music_promotion` (
   `album_art` varchar(120) NOT NULL,
   `mp3_name` varchar(120) NOT NULL,
   `song_link` varchar(120) NOT NULL,
-  `upload_date` timestamp NOT NULL
+  `upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -164,7 +173,8 @@ ALTER TABLE `contact_us`
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`artiste_id`);
+  ADD PRIMARY KEY (`artiste_id`),
+  ADD UNIQUE KEY `identifier` (`identifier`);
 
 --
 -- Indexes for table `music_promotion`
@@ -195,7 +205,7 @@ ALTER TABLE `contact_us`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `artiste_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `artiste_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `music_promotion`
 --
