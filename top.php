@@ -6,6 +6,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="org:url" content=""/>
+    <meta property="org:type" content="website"/>
+    <meta property="org:title" content="Gospel Music Hotspot"/>
+    <meta property="org:description" content=""/>
+    <meta property="org:image" content=""/>
     <title>Gospel Music Hotspot</title>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js">
@@ -17,7 +22,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 </head>
 <body >
-<?php ob_start(); ?>
+<div id="fb-root"></div>
+<script type="text/javascript">(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<?php ob_start();
+session_start();?>
 <div id="container_head">
     <div id="head">
         <a href="index.php"><img id="logo" src="logo/gmh.png" alt="logo"/></a>

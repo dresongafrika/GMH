@@ -28,6 +28,8 @@
         echo fread($read_lyrics,filesize("$lyric_target$sNAME by $aNAME.txt"));
         fclose($read_lyrics);
         echo '</div>';
+
+ echo'       <div class="fb-share-button" data-href="http://www.gospelmusichotspot.com/member_uploads.php?redirect='.$aNAME.'" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.gospelmusichotspot.com%2Fmember.php%3Fredirect%3Djaphet&amp;src=sdkpreparse">Share</a></div>';
     }
     ?>
 </section>

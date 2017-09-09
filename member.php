@@ -4,7 +4,6 @@ require ("top.php");
 <section id="main">
     <?php
     // Initialize the session
-    session_start();
     //If the redirection is coming from member edit.
     // If session variable is not set it will redirect to login page
     if(!isset($_SESSION['artiste_name']) || empty($_SESSION['artiste_name'])){

@@ -47,7 +47,6 @@
                             if(password_verify($password, $hashed_password)){
                                 /* Password is correct, so start a new session and
                                 save the artiste_name to the session */
-                                session_start();
                                 $_SESSION['artiste_name'] = $username;
                                 header("location: member.php");
                             } else{

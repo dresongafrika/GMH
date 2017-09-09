@@ -223,7 +223,8 @@
                         mysqli_stmt_bind_param($stmt, "sssssss",$aNAME,$phone,$email,$sNAME,$img_dir,$songNAME,$target_file);
                         mysqli_stmt_execute($stmt);
                         mysqli_stmt_close($stmt);
-                                echo 'Here is the link to your song: <a href="promo_uploads.php?redirect="' . $row["artiste_name"] . '">promo_uploads.php?redirect="' . $row["artiste_name"] . '"</a> ';
+
+                                echo 'Here is the link to your song: <a href="promo_uploads.php?redirect=" ' . $aNAME . ' ">promo_uploads.php?redirect="' . $aNAME . '"</a> ';
                     } else {
                         echo '<span style="color:red;">*Sorry, there was an error uploading your file.</span>';
                     }

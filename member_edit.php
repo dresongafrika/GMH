@@ -3,7 +3,6 @@
 <?php
 $query = "SELECT artiste_name FROM members";
 $stmt = mysqli_query ($dbc,$query);
-session_start();
 while ($row=mysqli_fetch_array($stmt)){
     if (!isset($_GET['name']) && $_GET['name']!==$row["artiste_name"]){
         header("location: member_login.php");

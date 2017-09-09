@@ -1,7 +1,11 @@
 <?php require ('top.php'); ?>
 <section id="main">
 <?php
-if(isset ($_GET['pay']) && isset($_POST['transaction_id']) && isset($_GET['username']) && !empty($_GET['username']) && !empty($_GET['yes']) && !empty($_POST['transaction_id'])) {
+if(!isset ($_GET['pay']) && !isset($_POST['transaction_id']) && !isset($_GET['username']) && empty($_GET['username']) && empty($_GET['yes']) && empty($_POST['transaction_id'])) {
+    header("location: membership.php");
+    exit;
+}
+
     $query = "SELECT artiste_name FROM members";
     $stmt = mysqli_query($dbc, $query);
     $uName = $_GET['username'];
@@ -34,10 +38,6 @@ if(isset ($_GET['pay']) && isset($_POST['transaction_id']) && isset($_GET['usern
     // Attempt to execute the prepared statement
     echo '
         <a href="member_edit.php?name=' . $param_username . '"><h6>welcome ' . $param_username . '! Your transaction id is ' . $transaction_id . ' Click here to set up your profile</h6></a>';
-}else{
-    header("location: membership.php");
-    exit;
-}
 ?>
 </section>
 <?php require ('bottom.php'); ?>
