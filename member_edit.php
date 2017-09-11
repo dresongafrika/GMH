@@ -1,14 +1,16 @@
-<?php require ('top.php') ?>
+<?php require ('top.php'); ?>
 <section id="main">
 <?php
+$_GET['name']="";
 $query = "SELECT artiste_name FROM members";
 $stmt = mysqli_query ($dbc,$query);
 while ($row=mysqli_fetch_array($stmt)){
     if (!isset($_GET['name']) && $_GET['name']!==$row["artiste_name"]){
         header("location: member_login.php");
-    exit;}
+        exit;
+    }
 }
-
+$edit_name=$_GET['name'];
 $pWord=$born_again=$country=$sex=$dob=$phone=$email=$add=$bio= $fName=$lName= "";
 $password_err=$born_again_err=$country_err=$sex_err=$dob_err=$bio_err = $fname_err=$lname_err=$phone_err=$email_err=$address_err=$fb_err=$twitter_err="";
 $fNAME=$_POST["first_name"]="";
@@ -24,6 +26,7 @@ $fb=$_POST["facebook"]="";
 $twitter=$_POST["twitter"]="";
 
 echo'
+<h3>Edit your profile</h3>
     <div class="wrapper">
         <h2>Artiste profile</h2>
         <form enctype="multipart/form-data" action="'. htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
@@ -50,8 +53,8 @@ echo'
         <div class="form-group">
             <label>Sex:<sup>*</sup></label>
             <select name="sex" class="form-control">
-                <option name="male" class="form-control">Male</option>
-                <option name="female" class="form-control">Female</option>
+                <option name="male" class="form-control">MALE</option>
+                <option name="female" class="form-control">FEMALE</option>
             </select>
             <span class="help-block"> '. $sex_err.'</span>
         </div>
@@ -96,17 +99,14 @@ echo'
             <input type="reset" name="reset" class="btn btn-default" value="Reset">
         </div>
     </form>
-</div>
-
-<h6>Edit your profile</h6>';
-    if(isset($_GET["name"])){
-        $edit_name=$_GET["name"];
-        $query = "SELECT * FROM members WHERE artiste_name=".$edit_name;
-        $stmt = mysqli_query ($dbc,$query);
-        $row=mysqli_fetch_array($stmt);
+</div>';
         // Define variables and initialize with empty values
             // Processing form data when form is submitted
             if(isset($_POST["submit"])){
+                $query = 'SELECT * FROM members WHERE artiste_name="'.$edit_name.'"';
+                $stmt = mysqli_query ($dbc,$query);
+                $row=mysqli_fetch_array($stmt);
+
 
                 $born_again=$country=$sex=$dob=$phone=$email=$add=$bio= $fName=$lName= "";
                 $born_again_err=$country_err=$sex_err=$dob_err=$bio_err = $fname_err=$lname_err=$phone_err=$email_err=$address_err=$fb_err=$twitter_err="";
@@ -121,7 +121,8 @@ echo'
                 $add=$_POST["address"]="";
                 $fb=$_POST["facebook"]="";
                 $twitter=$_POST["twitter"]="";
-                $query = "INSERT INTO members (first_name,last_name,dob,born_again,sex,country,phone,email,address,fb_link,twitter_link) VALUES(?,?,?,?,?,?,?,?,?,?)";
+                echo $edit_name;
+                $query = 'UPDATE members SET first_name=?,last_name=?,dob=?,born_again=?,sex=?,country=?,phone=?,email=?,address=?,fb_link=?,twitter_link=?';
                 $stmt = mysqli_prepare ($dbc,$query);
                 mysqli_stmt_bind_param($stmt, "sssssssssss",$fNAME,$lNAME,$dob,$born_again,$sex,$country,$phone,$email,$add,$fb,$twitter);
                 mysqli_stmt_execute($stmt);
@@ -138,7 +139,6 @@ echo'
                 header("location: member.php");
                 $_SESSION['artiste_name']=$edit_name;
 
-            }
     }
 ?>
 </section>

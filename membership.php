@@ -24,7 +24,7 @@
 
 <?php
             // Define variables and initialize with empty values
-            $param_password=$uName=$pWord=$confirm_password="";
+          $username_hash=$param_password=$uName=$pWord=$confirm_password="";
           $password_err=$confirm_password_err= $username_err ="";
             // Processing form data when form is submitted
             if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -36,7 +36,7 @@
                     // Prepare a select statement
 
                     $user_name = trim($_POST['user_name']);
-                    $query = "SELECT artiste_name FROM members WHERE artiste_name = '$user_name'";
+                    $query = 'SELECT artiste_name FROM members WHERE artiste_name = "'.$user_name.'" UNION SELECT artiste_name FROM tmp_member WHERE artiste_name = "'.$user_name.'"';
                     $stmt = mysqli_query($dbc,$query);
                     
                     if($stmt && mysqli_num_rows($stmt) > 0){
@@ -64,15 +64,14 @@
                                 $confirm_password_err = 'Password did not match.';
                             }else{
                                 $param_password = password_hash($pWord, PASSWORD_DEFAULT); // Creates a password hash
-                                $username_hash = password_hash($uName, PASSWORD_DEFAULT); // Creates a password hash
-                                $query = "INSERT INTO members (artiste_id,artiste_name,password,identifier) VALUES (0,?,?,?)";
+                                $query = "INSERT INTO tmp_member (id,artiste_name,password,tmp_reg_time) VALUES (NULL,?,?,NOW())";
                                 $stmt = mysqli_prepare($dbc, $query);
-                                mysqli_stmt_bind_param($stmt,'sss',$uName,$param_password,$username_hash);
-                                
+                                mysqli_stmt_bind_param($stmt,'ss',$uName,$param_password);
+
                                 mysqli_stmt_execute($stmt);
-                                
+
                                 mysqli_stmt_close($stmt);
-                                
+
                             }
                         }
                     }
@@ -84,7 +83,7 @@
                     <form enctype="multipart/form-data" action="'. htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
                     <div class="form-group">
                         <label>Stage_name:<sup>*</sup></label>
-                        <input type="text" name="user_name" class="form-control" value="';echo $_POST['user_name']; echo'">
+                        <input type="text" name="user_name" class="form-control" value="';echo $uName; echo'">
                         <span class="help-block">'; echo $username_err; echo'</span>
                     </div>
                 <div class="form-group">
@@ -109,9 +108,9 @@
                             Please proceed to pay.
                             <input type="hidden" name="v_merchant_id" value="demo" />
                             <input type="hidden" name="memo" value="payment for promotional song upload" />
-                            <input type="hidden" name="success_url" value="http://localhost/gmh/member_create.php?pay=yes&i=<?php echo $username_hash; ?>" />
+                            <input type="hidden" name="success_url" value="http://www.gospelmusichotspot.com/member_create.php?p=yes&u=<?php echo $uName ; ?>" />
                             <input type="hidden" name="fail_url" value="http://www.gospelmusichotspot.com/member_create.php?pay=no" />
-							<input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/member_create.php?" />
+							<input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/member_create.php?p=yes&u=<?php echo $uName ; ?>" />
                             <input type="hidden" name="cur" value="NGN" />
                             <input type="hidden" name="item_1" value="upload" />
                             <input type="hidden" name="developer_code" value="599a05bc1e8d3" />
