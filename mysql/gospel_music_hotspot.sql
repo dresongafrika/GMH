@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2017 at 10:55 PM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Sep 11, 2017 at 03:18 PM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -92,7 +92,7 @@ CREATE TABLE `members` (
   `last_name` varchar(120) DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `born_again` date DEFAULT NULL,
-  `sex` enum('MALE','FEMALE') NOT NULL,
+  `sex` enum('','MALE','FEMALE') NOT NULL,
   `country` varchar(120) DEFAULT NULL,
   `phone` varchar(120) DEFAULT NULL,
   `email` varchar(120) DEFAULT NULL,
@@ -103,16 +103,19 @@ CREATE TABLE `members` (
   `password` varchar(120) DEFAULT NULL,
   `membership_date` timestamp NULL DEFAULT NULL,
   `expiry_date` timestamp NULL DEFAULT NULL,
-  `identifier` varchar(120) NOT NULL,
-  `transaction_id` varchar(100) NOT NULL
+  `transaction_id` varchar(100) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`artiste_id`, `first_name`, `last_name`, `dob`, `born_again`, `sex`, `country`, `phone`, `email`, `address`, `fb_link`, `twitter_link`, `artiste_name`, `password`, `membership_date`, `expiry_date`, `identifier`, `transaction_id`) VALUES
-(75, NULL, NULL, NULL, NULL, 'MALE', NULL, NULL, NULL, NULL, NULL, NULL, 'tomiiide1', '$2y$10$0jPlwQ2OY1fxN92mZYArTONtlwwgUUZxp/K0.cmcaJrZs49DTpiZW', '2017-09-09 20:54:29', '2017-09-09 20:54:29', '$2y$10$zjh8MMaSRMhXREWyJoum2uaqRinb1ftCNH.U82rJ7r6Nir4y.1bda', 'demo-59b44f2f9911b');
+INSERT INTO `members` (`artiste_id`, `first_name`, `last_name`, `dob`, `born_again`, `sex`, `country`, `phone`, `email`, `address`, `fb_link`, `twitter_link`, `artiste_name`, `password`, `membership_date`, `expiry_date`, `transaction_id`) VALUES
+(77, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '', '$2y$10$MrjK8EFOf0Mmseq0FrtDM.LAQZC/WQ0goWqMutWbeg2f0alTnPPyK', NULL, NULL, NULL),
+(78, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'jesus', '$2y$10$BfWHh.TeJkpTm.ylki.qQuzaiziL/5RflDBFZ25y2MPXylfwWhbxm', '2017-09-11 09:05:55', '2017-09-11 09:05:55', 'demo-59b5b980f0957'),
+(79, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'ejike', '$2y$10$oN9uI70teIo94W2L.iEQQOJOIboywYumHi10yUiBrnScZIFx8orbW', '2017-09-11 09:39:02', '2017-09-11 09:39:02', 'demo-59b659ab46c86'),
+(80, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'ifeanyi', '$2y$10$yYnOKPDiVOTzcXAjxtSCbu0I5EPI.znQfDoSbTRtc.ogXJ9CdAED.', '2017-09-11 10:12:14', '2017-09-11 10:12:14', 'demo-59b6614ab1c0e'),
+(81, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'mercy', '$2y$10$3ND5Tt.HjpFZR3khTZe06es4Agzn3fRzjJuvAMVBQVIRyPGP6XJA.', '2017-09-11 11:17:49', '2017-09-11 11:17:49', 'demo-59b670c8eb34f');
 
 -- --------------------------------------------------------
 
@@ -147,6 +150,36 @@ CREATE TABLE `music_promotion` (
   `upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tmp_member`
+--
+
+CREATE TABLE `tmp_member` (
+  `id` int(150) NOT NULL,
+  `artiste_name` varchar(150) DEFAULT NULL,
+  `password` varchar(150) DEFAULT NULL,
+  `tmp_reg_time` timestamp(6) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tmp_member`
+--
+
+INSERT INTO `tmp_member` (`id`, `artiste_name`, `password`, `tmp_reg_time`) VALUES
+(1, 'james', '', '0000-00-00 00:00:00.000000'),
+(2, 'adeboye', 'kekdskdskdkd', '0000-00-00 00:00:00.000000'),
+(3, 'gift', '$2y$10$gWeGPcJ39M2d3YDFAFc8Ae.FGBF9AD06w0Q4cXtQ5C5NP.Lv5Wj6y', '0000-00-00 00:00:00.000000'),
+(4, 'bambam', '$2y$10$XYS.9TXaTpDS1DWzMsZNiu5.340yP8KW25gQEwfRYnxM6DDYdrpCu', '0000-00-00 00:00:00.000000'),
+(5, 'jesus', '$2y$10$BfWHh.TeJkpTm.ylki.qQuzaiziL/5RflDBFZ25y2MPXylfwWhbxm', '0000-00-00 00:00:00.000000'),
+(6, 'okereke', '$2y$10$4MmRcSG7QpBfJ/j21INeH.gyqVvAUp5Lwd/iqI3VRfEnl9vodzSOK', '2017-09-11 09:26:03.000000'),
+(7, '', '$2y$10$O9JoAc7cZY5P3KbzMm4CDuDL7rNbDCDtmEO1uucHPN1sxh3.pLbr6', '2017-09-11 09:30:08.000000'),
+(8, 'ugonna', '$2y$10$02mKfgWj9VFkfhNqstLSqe7/6wCCHCguR2h6RvUH8t7Dz4yBFPKeG', '2017-09-11 09:30:19.000000'),
+(9, 'femi', '$2y$10$f1pz9YW79f9maQBBJG1bJe6DEI7RFIxbFNx0h3r/LUo9ZRMKpK9KC', '2017-09-11 09:32:16.000000'),
+(12, 'aanu', '$2y$10$2Fl.JdY8sAoXyKRaisNLtuzqFxUv3blNrLCP1rlhR/tx09ET0Vew2', '2017-09-11 11:09:00.000000'),
+(13, 'tim', '$2y$10$8fITOpL6XGTVSYZqkd.g0.89qHcxC/sSqnoT/fSYUj.i/cyfWc70m', '2017-09-11 11:12:40.000000');
+
 --
 -- Indexes for dumped tables
 --
@@ -173,14 +206,19 @@ ALTER TABLE `contact_us`
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`artiste_id`),
-  ADD UNIQUE KEY `identifier` (`identifier`);
+  ADD PRIMARY KEY (`artiste_id`);
 
 --
 -- Indexes for table `music_promotion`
 --
 ALTER TABLE `music_promotion`
   ADD PRIMARY KEY (`artiste_id`);
+
+--
+-- Indexes for table `tmp_member`
+--
+ALTER TABLE `tmp_member`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -205,12 +243,17 @@ ALTER TABLE `contact_us`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `artiste_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `artiste_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 --
 -- AUTO_INCREMENT for table `music_promotion`
 --
 ALTER TABLE `music_promotion`
   MODIFY `artiste_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+--
+-- AUTO_INCREMENT for table `tmp_member`
+--
+ALTER TABLE `tmp_member`
+  MODIFY `id` int(150) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
