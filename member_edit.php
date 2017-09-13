@@ -1,16 +1,10 @@
 <?php require ('top.php'); ?>
 <section id="main">
 <?php
-$_GET['name']="";
-$query = "SELECT artiste_name FROM members";
+if (isset($_GET['name'])){
+$query = 'SELECT artiste_name FROM members WHERE artiste_name="'.$_GET['name'].'"';
 $stmt = mysqli_query ($dbc,$query);
-while ($row=mysqli_fetch_array($stmt)){
-    if (!isset($_GET['name']) && $_GET['name']!==$row["artiste_name"]){
-        header("location: member_login.php");
-        exit;
-    }
-}
-$edit_name=$_GET['name'];
+$row=mysqli_fetch_array($stmt);
 $pWord=$born_again=$country=$sex=$dob=$phone=$email=$add=$bio= $fName=$lName= "";
 $password_err=$born_again_err=$country_err=$sex_err=$dob_err=$bio_err = $fname_err=$lname_err=$phone_err=$email_err=$address_err=$fb_err=$twitter_err="";
 $fNAME=$_POST["first_name"]="";
@@ -26,10 +20,13 @@ $fb=$_POST["facebook"]="";
 $twitter=$_POST["twitter"]="";
 
 echo'
-<h3>Edit your profile</h3>
+
     <div class="wrapper">
         <h2>Artiste profile</h2>
-        <form enctype="multipart/form-data" action="'. htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
+        <form enctype="multipart/form-data" action="profile_update.php" method="post">
+        <div class="form-group">
+            <input type="hidden" name="uname" class="form-control" value="'.$_GET['name'].'">
+        </div>
         <div class="form-group">
             <label>First name:<sup>*</sup></label>
             <input type="text" name="first_name" class="form-control" value="'. $fName.'">
@@ -100,46 +97,7 @@ echo'
         </div>
     </form>
 </div>';
-        // Define variables and initialize with empty values
-            // Processing form data when form is submitted
-            if(isset($_POST["submit"])){
-                $query = 'SELECT * FROM members WHERE artiste_name="'.$edit_name.'"';
-                $stmt = mysqli_query ($dbc,$query);
-                $row=mysqli_fetch_array($stmt);
-
-
-                $born_again=$country=$sex=$dob=$phone=$email=$add=$bio= $fName=$lName= "";
-                $born_again_err=$country_err=$sex_err=$dob_err=$bio_err = $fname_err=$lname_err=$phone_err=$email_err=$address_err=$fb_err=$twitter_err="";
-                $fNAME=$_POST["first_name"]="";
-                $lNAME=$_POST["last_name"]="";
-                $dob=$_POST["dob"]="";
-                $born_again=$_POST["born_again"]="";
-                $sex=$_POST["sex"]="";
-                $country=$_POST["country"]="";
-                $phone=$_POST["phone"]="";
-                $email=$_POST["email"]="";
-                $add=$_POST["address"]="";
-                $fb=$_POST["facebook"]="";
-                $twitter=$_POST["twitter"]="";
-                echo $edit_name;
-                $query = 'UPDATE members SET first_name=?,last_name=?,dob=?,born_again=?,sex=?,country=?,phone=?,email=?,address=?,fb_link=?,twitter_link=?';
-                $stmt = mysqli_prepare ($dbc,$query);
-                mysqli_stmt_bind_param($stmt, "sssssssssss",$fNAME,$lNAME,$dob,$born_again,$sex,$country,$phone,$email,$add,$fb,$twitter);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
-
-                $cwd=getcwd();
-                $structure1=$cwd."/members/".$edit_name;
-                $bio_title=$structure1."/".$edit_name;
-                $bio=trim($_POST['bio']);
-                $bio_open=fopen("$bio_title.txt","w");
-                fwrite($bio_open, $bio);
-                fclose($bio_open);
-
-                header("location: member.php");
-                $_SESSION['artiste_name']=$edit_name;
-
-    }
+}
 ?>
 </section>
 <?php require ('bottom.php') ?>

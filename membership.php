@@ -13,7 +13,7 @@
         </ol>
 
         <p>So what are you waiting for?</p>
-        Fill the forms below and get back to us. We are here for you. Bless you.
+        Fill the forms below and get back to us. We are here for you.
 
         <h2>Disclaimer</h2>
         <p>2. The above benefits are subject to constant reviews at the discretion of the admin.</p>

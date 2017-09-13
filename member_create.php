@@ -17,7 +17,7 @@ if(!isset($_GET['p'])  || !isset($_GET['u']) || empty($_GET['u']) || !isset($_PO
 
     // Check input errors before inserting in database
     // Prepare an insert statement
-    $query='INSERT INTO members (artiste_name,password,transaction_id,membership_date,expiry_date) VALUES (?,?,?,NOW(),NOW())';
+    $query='INSERT INTO members (artiste_id,artiste_name,password,transaction_id,membership_date,expiry_date) VALUES (NULL,?,?,?,NOW(),NOW())';
     $stmt = mysqli_prepare($dbc, $query);
     mysqli_stmt_bind_param($stmt,'sss', $oruko,$ikoko,$transaction_id);
     mysqli_stmt_execute($stmt);
