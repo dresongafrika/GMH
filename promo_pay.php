@@ -12,7 +12,7 @@ if (isset($_GET['pay']) && isset($_GET['name']) && isset($_POST['transaction_id'
     $email=$row["email"];
     $albumART=$row['img_base'];
     $new_bio="promotions/biographies/".$aNAME.".txt";
-    $new_lyric="promotions/lyrics/".$sNAME."by" .$aNAME.".txt";
+    $new_lyric="promotions/lyrics/".$sNAME." by " .$aNAME.".txt";
     $target_dir = "promotions/promo_uploads/";
     $target_file_new = $target_dir.$aNAME .$row['mp3_name'];
     $img_dir_new = "promotions/album art/".$aNAME.$albumART;
