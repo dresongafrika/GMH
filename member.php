@@ -16,7 +16,7 @@ require ("top.php");
         <h1>Hi, <b><?php echo $_SESSION['artiste_name']; ?></b>. Welcome to your page.</h1>
         Here you can edit your biography and upload new songs.
     </div>
-    <h4 >Edit your Bio (Click submit once).</h4>
+    <h4 >Edit your Bio.</h4>
 
         <?php
             $param_username=$_SESSION['artiste_name'];
@@ -32,11 +32,25 @@ require ("top.php");
                     <input type="submit" name="submit_bio"/>
                   </form>';
         fclose($bio_open);
-        echo '<a href="member_upload.php?username='.$param_username.'"><h4>Click here to upload a new song.</h4></a>';
         ?>
 
-    <?php  echo '<a href="promotions.php?member_promo=" '.$_SESSION["artiste_name"].' "><h6>Click here if you would like to promote any of your songs at 50% discount</h6></a>' ?>
-    <?php  echo '<a href="index.php?member_promo=" '.$_SESSION["artiste_name"].' "><h6>Would you like to advertise your worship meeting at a discount, If Yes. Click here</h6></a>' ?>
+    <?php
+    echo '<h4>'.$param_username.',here is a list of all your songs on our database, click any to promote it on the front page!</h4>';
+    $query = 'SELECT song_title FROM members_songs WHERE artiste_name="'.$param_username.'" ORDER BY song_title ASC';
+    $stmt = mysqli_query ($dbc,$query);
+    echo '<ol>';
+    while ($row=mysqli_fetch_array($stmt)) {
+        echo '<div class="all_songs">
+                    <li><a href="my_songs.php?mem_red_name='.$param_username.'&mem_red_song='.$row["song_title"].'">'. $row["song_title"] .'</a></li>
+              </div>';
+    }
+    echo '</ol>';
+    ?>
+
+
+    <a href="member_upload.php?username=<?php echo $_SESSION["artiste_name"]; ?>"><h1>Click here to upload a new song for free.</h1></a>
+    <?php  echo '<a href="promotions.php?member_promo='.$_SESSION["artiste_name"].' "><h1>Click here if you would like to promote any of your unuploaded songs at 50% discount</h1></a>' ?>
+    <?php  echo '<a href="adverts.php?member_promo='.$_SESSION["artiste_name"].' "><h1>Would you like to advertise your worship meeting at a discount on our homepage?, If Yes, Click here</h1></a>' ?>
 
     <h4>Your fans have something to tell you!</h4>
     <?php
@@ -53,6 +67,6 @@ require ("top.php");
 
     <?php echo '<a href="member_edit.php?name='.$_SESSION["artiste_name"].'><h6>Click here to edit your profile</h6></a>';?>
     <p><a href="member_logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
-    </br><a href="https://voguepay.com/register/3828-0054426"><img src="https://voguepay.com/images/banners/f.png" width="600" height="60" /></a>
+   <a href="https://voguepay.com/register/3828-0054426"><img src="https://voguepay.com/images/banners/f.png" width="600" height="60" /></a>
 </section>
 <?php require ('bottom.php'); ?>

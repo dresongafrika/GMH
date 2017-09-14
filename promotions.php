@@ -10,94 +10,29 @@
             while ($row=mysqli_fetch_array($stmt)){
                 if($aNAME==$row["artiste_name"]){
                     echo'    
-                            <form method="post" enctype="multipart/form-data" action="'. htmlspecialchars ($_SERVER["PHP_SELF"]).'">
+                            <form method="post" enctype="multipart/form-data" action="promo_post.php">
+                            <input type="hidden" name="name" value="'.$aNAME.'" >
                             Type in the song title:
-                            <input type="text" name="title" required="required" value="">
+                            <input type="text" name="title" required="required" >
+                            <input type="hidden" name="phone" value="'.$row["phone"].'" >
+                            <input type="hidden" name="email" value="'.$row["email"].'" >
+                            <input type="hidden" name="bio" value="';
+                            $cwd=getcwd();
+                            $bio_dir=$cwd."/members/".$aNAME."/".$aNAME.".txt";
+                            $bio_open=fopen($bio_dir,'r');
+                            echo fread($bio_open,filesize($bio_dir));
+                            fclose($bio_open);
+                    echo'        "/></br>
                             Select mp3 to upload:
                             <input type="file" name="mp3" required="required" >
+                            <input type="hidden" name="price" value="8000" >
                             Select album cover to upload:
                             <input type="file" name="cover" required="required" >
                             Type in the lyrics:
                             <textarea name="lyrics" rows="4" cols="50" placeholder="Type it this way. Please ensure it contains the necessary song parts like choruses, verses and bridge" required="required"></textarea></br>
-                            <input type="submit" value="Upload" name="submit">';
 
-                            if (isset($_POST["submit"])){
-
-                                $sNAME=$_POST["title"];
-                                $phone=$row["phone"];
-                                $email=$row["email"];
-                                $lyrics=$_POST["lyrics"];
-                                $albumART = basename($_FILES ["cover"]["name"]);
-                                $songNAME = basename($_FILES["mp3"]["name"]);
-                                $target_dir = "promotions/promo_dump/";
-                                $target_file = $target_dir .$songNAME;
-                                $uploadOk = 1;
-                                $songFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-                                $img_dir = "promotions/album art dump/".$albumART;
-                                $img_dirType = pathinfo($img_dir,PATHINFO_EXTENSION);
-
-                                // Check file size
-                                if ($_FILES["mp3"]["size"] > 10000000) {
-                                    $uploadOk = 0;
-                                    echo '</br>*<span style="color:red;>Please ensure that your song is less than 10MB </span></br>';
-                                }
-                                // Allow certain file formats
-                                if($songFileType != "mp3" && $songFileType != "MP3") {
-                                    $uploadOk = 0;
-                                    echo '*<span style="color:red;">Only mp3 files are allowed</span></br>';
-                                }
-                                if($img_dirType != "jpg" && $img_dirType != "png" && $img_dirType != "JPG" && $img_dirType != "PNG") {
-                                    $uploadOk = 0;
-                                    echo '*<span style="color:red;">Upload an album art with a jpg or png extension</span></br>';
-                                }
-                                // Check if $uploadOk is set to 0 by an error
-                                if ($uploadOk == 0) {
-                                    echo  '*<span style="color:red;">Sorry, your file was not uploaded</span></br>';
-                                // if everything is ok, try to upload file
-                                } else {
-                                    if (move_uploaded_file($_FILES ["mp3"]["tmp_name"],$target_file) && move_uploaded_file($_FILES ["cover"]["tmp_name"],$img_dir)) {
-                                        echo $sNAME.' has been successfully uploaded.</br>';
-
-                                        /** save lyrics  **/
-                                        $bio_target="promotions/biographies_dump/";
-                                        $lyric_target="promotions/lyrics_dump/";
-                                        $tmp_bio=$bio_target.$aNAME."txt";
-                                        $tmp_lyric=$lyric_target.$sNAME ."by" .$aNAME.".txt";
-                                        $lyricCONTENT = fopen($sNAME ."by". $aNAME.".txt", "w");
-                                        fwrite($lyricCONTENT, $lyrics);
-                                        fclose($lyricCONTENT);
-                                        copy("members/".$aNAME."/".$aNAME.".txt",$bio_target.$aNAME."txt");
-                                        rename($sNAME." by". $aNAME.".txt",$lyric_target.$sNAME ."by" .$aNAME.".txt");
-
-                                        /** send data to database  **/
-
-                                        $query = "INSERT INTO tmp_promo (artiste_id,artiste_name,phone, email, song_title, album_art, mp3_name, song_link,tmp_bio,tmp_lyric) VALUES (NULL,?,?,?,?,?,?,?,?,NOW())";
-                                        $stmt = mysqli_prepare ($dbc,$query);
-                                        mysqli_stmt_bind_param($stmt, "sssssss",$aNAME,$phone,$email,$sNAME,$img_dir,$songNAME,$target_file,$tmp_bio,$tmp_lyric);
-                                        mysqli_stmt_execute($stmt);
-                                        mysqli_stmt_close($stmt);
-
-                                        echo'
-                                                </form></br>
-                                                <form method="POST" action="https://voguepay.com/pay/">
-                                                    <input type="hidden" name="v_merchant_id" value="3828-0054426" />
-                                                    <input type="hidden" name="memo" value="payment for promotional song upload" />
-                                                    <input type="hidden" name="success_url" value="https://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'" />
-                                                    <input type="hidden" name="fail_url" value="https://www.gospelmusichotspot.com/promo_pay.php?pay=no" />
-                                                    <input type="hidden" name="notify_url" value="https://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'"/>
-                                                    <input type="hidden" name="cur" value="NGN" />
-                                                    <input type="hidden" name="item_1" value="upload" />
-                                                    <input type="hidden" name="developer_code" value="599a05bc1e8d3" />
-                                                    <input type="hidden" name="total" value="5000" />
-                                                    <input type="hidden" name="description_1" value="" /><br />
-                                                    <input type="image" src="https://voguepay.com/images/buttons/make_payment_blue.png" alt="PAY WITH YOUR CREDIT/DEBIT CARD" />
-                                                </form>
-                                                <i class="fa fa-cc-discover" ></i><i class="fa fa-cc-visa"></i><i class="fa fa-cc-mastercard"></i><i class="fa fa-cc-paypal"></i></br>';
-
-                                    }
-                                }
-                            }
-
+                            <input type="submit" value="Upload" name="submit">
+                            </form></br>';
 
                 }
             }
@@ -107,7 +42,7 @@
         }else{
             echo' 
                             <h2>Just released a song? This is for you. With just $27.40 you can promote your song on our front page with a download link for your fans</h2>
-                            <form method="post" enctype="multipart/form-data" action="'. htmlspecialchars ($_SERVER["PHP_SELF"]).'">
+                            <form method="post" enctype="multipart/form-data" action="promo_post.php">
                             Type in your name as written on your song cover:
                             <input type="text" name="name" required="required" >
                             Type in the song title:
@@ -116,6 +51,7 @@
                             <input type="number" name="phone" required="required" >
                             Type in a a valid email address:
                             <input type="email" name="email" required="required" >
+                            <input type="hidden" name="price" value="10000" >
                             Tell us about yourself:
                             <textarea name="bio" rows="4" cols="50" placeholder="Type it this way starting with your name.
                             Damilare Ademeso is minister of the gospel devoted to seeing the flames of worship across the nations e.t.c " required="required"></textarea></br>
@@ -130,85 +66,6 @@
                             </form></br>';
 
 
-            if (isset($_POST["submit"])){
-
-                $aNAME=$_POST["name"];
-                $sNAME=$_POST["title"];
-                $phone=$_POST["phone"];
-                $email=$_POST["email"];
-                $lyrics=$_POST["lyrics"];
-                $bio=$_POST["bio"];
-                $albumART = basename($_FILES ["cover"]["name"]);
-                $songNAME = basename($_FILES["mp3"]["name"]);
-                $target_dir = "promotions/promo_uploads/";
-                $target_file = $target_dir .$songNAME;
-                $uploadOk = 1;
-                $songFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-                $img_dir = "promotions/album art/".$albumART;
-                $img_dirType = pathinfo($img_dir,PATHINFO_EXTENSION);
-
-                // Check file size
-                if ($_FILES["mp3"]["size"] > 10000000) {
-                    $uploadOk = 0;
-                    echo '</br>*<span style="color:red;>Please ensure that your song is less than 10MB </span></br>';
-                }
-                // Allow certain file formats
-                if($songFileType != "mp3" && $songFileType != "MP3") {
-                    $uploadOk = 0;
-                    echo '*<span style="color:red;">Only mp3 files are allowed</span></br>';
-                }
-                if($img_dirType != "jpg" && $img_dirType != "png" && $img_dirType != "JPG" && $img_dirType != "PNG") {
-                    $uploadOk = 0;
-                    echo '*<span style="color:red;">Upload an album art with a jpg or png extension</span></br>';
-                }
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-                    echo  '*<span style="color:red;">Sorry, your file was not uploaded</span></br>';
-                    // if everything is ok, try to upload file
-                } else {
-                    if (move_uploaded_file($_FILES ["mp3"]["tmp_name"],$target_file) && move_uploaded_file($_FILES ["cover"]["tmp_name"],$img_dir)) {
-                        echo $sNAME.' has been successfully uploaded.</br>';
-;
-
-                        /** save lyrics and bio  **/
-
-                        $bio_target="promotions/biographies_dump/";
-                        $lyric_target="promotions/lyrics_dump/";
-                        $bioCONTENT = fopen("$aNAME.txt", "w");
-                        $lyricCONTENT = fopen("$sNAME by $aNAME.txt", "w");
-                        fwrite($bioCONTENT, $bio);
-                        fwrite($lyricCONTENT, $lyrics);
-                        fclose($bioCONTENT);
-                        fclose($lyricCONTENT);
-                        rename("$aNAME.txt","$bio_target$aNAME.txt");
-                        rename("$sNAME by $aNAME.txt","$lyric_target$sNAME by $aNAME.txt");
-
-                        /** send data to database  **/
-
-                        $query = "INSERT INTO tmp_promo (artiste_id,artiste_name,phone, email, song_title, album_art, mp3_name, song_link) VALUES (NULL,?,?,?,?,?,?,NOW())";
-                        $stmt = mysqli_prepare ($dbc,$query);
-                        mysqli_stmt_bind_param($stmt, "sssssss",$aNAME,$phone,$email,$sNAME,$img_dir,$songNAME,$target_file);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
-
-                        echo      '        <form method="POST" action="https://voguepay.com/pay/">
-                                <input type="hidden" name="v_merchant_id" value="3828-0054426" />
-                                <input type="hidden" name="memo" value="payment for promotional song upload" />
-                                <input type="hidden" name="success_url" value="https://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'" />
-                                <input type="hidden" name="fail_url" value="https://www.gospelmusichotspot.com/promo_pay.php?pay=no" />
-                                <input type="hidden" name="notify_url" value="https://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'"/>
-                                <input type="hidden" name="cur" value="NGN" />
-                                <input type="hidden" name="item_1" value="upload" />
-                                <input type="hidden" name="developer_code" value="599a05bc1e8d3" />
-                                <input type="hidden" name="total" value="10000" />
-                                <input type="hidden" name="description_1" value="" /><br />
-                                <input type="image" src="https://voguepay.com/images/buttons/make_payment_blue.png" alt="PAY WITH YOUR CREDIT/DEBIT CARD" />
-                            </form>
-                            <i class="fa fa-cc-discover" ></i><i class="fa fa-cc-visa"></i><i class="fa fa-cc-mastercard"></i><i class="fa fa-cc-paypal"></i></br>';
-
-                    }
-                }
-            }
         }
 
 

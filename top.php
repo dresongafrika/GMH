@@ -62,10 +62,11 @@ session_start();?>
     <audio id="radio" controls="controls">
         <?php
         require_once ('db/config.php');
-        $query = "SELECT * FROM members";
+        $query = "SELECT * FROM members_songs";
         $stmt = mysqli_query ($dbc,$query);
         while ($row=mysqli_fetch_array($stmt)){
-            echo '<source type="audio/mp3" src="'.$row["song_link"].'" ></source>
+            echo ' Now playing!' .$row["song_title"]. 'by'. $row["artiste_name"].
+            '<source type="audio/mp3" src="'.$row["song_link"].'" />
                             Your browser does not support the audio element.';
         }
         ?>
@@ -78,19 +79,17 @@ session_start();?>
    }
    ?>
 
-<form id="fav_search" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form id="fav_search">
         <label >Check out your favourite artiste.</label>
-            <select >
+            <select id="artistes_menu" onchange="if (this.value) window.location.href=this.value;">
+                <option value="index.php" selected="selected"> Select your favourite artiste below</option>
             <?php
-            $query = "SELECT artiste_name FROM members ORDER BY artiste_name ASC ";
-            $stmt = mysqli_query ($dbc,$query);
-            while ($row=mysqli_fetch_array($stmt)){
-                    echo '<option type="multiple" name="artiste_select">'.$row["artiste_name"].'</option>';
-                }
-                ?>
+            $query1 = 'SELECT artiste_name FROM members ORDER BY artiste_name ASC ';
+            $stmt1 = mysqli_query ($dbc,$query1);
+            while ($result=mysqli_fetch_array($stmt1)){
+                echo '<option name="artiste_select" value="member_page.php?name='.$result["artiste_name"].'">'.$result["artiste_name"].'</option>';
+            }
+            ?>
             </select>
 
-    <input type="submit" name="submit" value="submit"/>
 </form>
-
-

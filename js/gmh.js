@@ -37,5 +37,6 @@ weekSong();
     myIndex++;
     if (myIndex>x.length){myIndex=1}
     x[myIndex-1].style.display="block";
-    setTimeout(weekSong, 3000);
+    setTimeout(weekSong, 86400000);
 	}
+

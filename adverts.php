@@ -21,7 +21,7 @@
                                                     <input type = "submit" name = "submit" >
                               </form >';
                                                 if (isset($_POST['submit'])) {
-                                                    $dir = 'banner_dump/';
+                                                    $dir = 'arowoyin/banner_dump/';
                                                     $base = basename($_FILES ["banner"]["name"]);
                                                     $banner_link = $dir . $base;
                                                     $file_type = pathinfo($banner_link, PATHINFO_EXTENSION);
@@ -77,7 +77,7 @@
                                                     <input type = "submit" name = "submit" >
                               </form >';
                                                 if (isset($_POST['submit'])) {
-                                                    $dir = 'banner_dump/';
+                                                    $dir = 'arowoyin/banner_dump/';
                                                     $base = basename($_FILES ["banner"]["name"]);
                                                     $banner_link = $dir . $base;
                                                     $file_type = pathinfo($banner_link, PATHINFO_EXTENSION);
@@ -94,7 +94,7 @@
                                                     }
                                                     $query = "INSERT INTO tmp_ad (ad_id,program_name,banner_link, phone_number,email, prog_url,file_base) VALUES (NULL,?,?,?,?,?,?)";
                                                     $stmt = mysqli_prepare($dbc, $query);
-                                                    mysqli_stmt_bind_param($stmt, "sssss", $prog_name, $banner_link, $phone_number, $email, $prog_url,$base);
+                                                    mysqli_stmt_bind_param($stmt, "ssssss", $prog_name, $banner_link, $phone_number, $email, $prog_url,$base);
                                                     mysqli_stmt_execute($stmt);
                                                     mysqli_stmt_close($stmt);
 

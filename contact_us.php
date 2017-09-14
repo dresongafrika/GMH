@@ -23,7 +23,7 @@ if(isset($_GET['submit'])){
     $date=date("Y-m-d H:i:s");
     $message=$_GET["message"];
     $message_target="messages/".$subject." from ".$name.".txt";
-    $message_content = fopen("$subject from $name.txt", "w");
+    $message_content = fopen($subject. "from" .$name.".txt", "w");
     $new_subject="$subject from $name.txt";
     fwrite($message_content, $subject.PHP_EOL);
     fwrite($message_content, $name.PHP_EOL);
@@ -32,9 +32,8 @@ if(isset($_GET['submit'])){
     fwrite($message_content, $date.PHP_EOL);
     fwrite($message_content, $message.PHP_EOL);
     fclose($message_content);
-    rename("$subject from $name.txt",$message_target);
+    rename($subject. "from" .$name.".txt",$message_target);
     $query='INSERT INTO contact_us (message_date,guest_name,message_link) VALUES (NOW(),?,?)';
-    echo $name;
     $stmt = mysqli_prepare ($dbc,$query);
     mysqli_stmt_bind_param($stmt, "ss",$name,$message_target);
     mysqli_stmt_execute($stmt);

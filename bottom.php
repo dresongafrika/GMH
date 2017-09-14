@@ -20,8 +20,8 @@
                 $aNAME = $row["artiste_name"];
                 echo '<div class="song_week ">';
                 echo '<h3 id="song_title">' . $row["song_title"] . 'by' . $row["artiste_name"] . '</h3>';
-                    $read_lyrics = fopen("$lyric_target$sNAME by $aNAME.txt", "r");
-                    echo fread($read_lyrics, filesize("$lyric_target$sNAME by $aNAME.txt"));
+                    $read_lyrics = fopen($lyric_target.$sNAME ."by". $aNAME.".txt", "r");
+                    echo fread($read_lyrics, filesize($lyric_target.$sNAME. "by" .$aNAME.".txt"));
                     echo '<a href="member_songs.php?mem_red_name=' . $row["artiste_name"] .'&&mem_red_song='.$row["song_title"].'" target="_blank" id="download_link">Download/Play online</a>
                       </div>';
                 fclose($read_lyrics);
