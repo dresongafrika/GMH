@@ -28,8 +28,8 @@
               </form>';
         echo '<h3>Lyrics</h3></br>';
         echo '<div id="lyric_cont">';
-        $read_lyrics = fopen($lyric_target.$sNAME. "by" .$aNAME.".txt", "r");
-        echo fread($read_lyrics,filesize($lyric_target.$sNAME. "by" .$aNAME.".txt"));
+        $read_lyrics = fopen($lyric_target.$sNAME. " by " .$aNAME.".txt", "r");
+        echo fread($read_lyrics,filesize($lyric_target.$sNAME. " by " .$aNAME.".txt"));
         fclose($read_lyrics);
         echo '</div>';
 

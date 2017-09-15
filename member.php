@@ -14,6 +14,12 @@ require ("top.php");
 
     <div class="page-header">
         <h1>Hi, <b><?php echo $_SESSION['artiste_name']; ?></b>. Welcome to your page.</h1>
+        <?php
+        $query1 = 'SELECT profile_pix,artiste_name FROM members WHERE artiste_name="'.$_SESSION['artiste_name'].'"';
+        $stmt1 = mysqli_query ($dbc,$query1);
+        $result=mysqli_fetch_array($stmt1);
+        echo '<img class="profile_pix" src="' . $result["profile_pix"] . '" alt="' . $result["artiste_name"] . ' \'s pix" /></img>';
+        ?>
         Here you can edit your biography and upload new songs.
     </div>
     <h4 >Edit your Bio.</h4>
@@ -65,7 +71,7 @@ require ("top.php");
         }
     ?>
 
-    <?php echo '<a href="member_edit.php?name='.$_SESSION["artiste_name"].'><h6>Click here to edit your profile</h6></a>';?>
+    <?php echo '<a href="member_edit.php?name='.$_SESSION["artiste_name"].'"><h6>Click here to edit your profile</h6></a>';?>
     <p><a href="member_logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
    <a href="https://voguepay.com/register/3828-0054426"><img src="https://voguepay.com/images/banners/f.png" width="600" height="60" /></a>
 </section>

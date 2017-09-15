@@ -4,7 +4,7 @@
     if (isset ($_GET['mem_red_name']) && isset($_GET['mem_red_song'])){
         $artiste_name = $_GET['mem_red_name'];
         $song_title = $_GET['mem_red_song'];
-        $query = 'SELECT * FROM members_songs WHERE artiste_name='.$artiste_name.'AND song_title='.$song_title;
+        $query = 'SELECT * FROM members_songs WHERE artiste_name="'.$artiste_name.'" AND song_title="'.$song_title.'"';
         $stmt = mysqli_query ($dbc,$query);
         $row=mysqli_fetch_array($stmt);
         $bio_target='members/'.$artiste_name.'/biographies/';

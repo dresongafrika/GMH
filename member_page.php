@@ -10,6 +10,7 @@
                         echo "<b>Welcome to ".$row['artiste_name']."'s page.</b></br>
                         Here you can find everything you need to know about ".$row['artiste_name'].", download all his songs and lyrics.</br>
                         <h5>BIOGRAPHY</h5></br>";
+                        echo '<img class="profile_pix" src="' . $row["profile_pix"] . '" alt="' . $row["artiste_name"] . ' \'s pix" /></img>';
                         echo '
                         Full Name: '.$row["first_name"].' '.$row["last_name"].'</br>
                         Sex: '.$row["sex"].'</br>
@@ -34,7 +35,7 @@
                             echo '<li><a href="'.$result["song_link"].'">'.$result["song_title"].' from the album '.$result["album_name"].'.</a></li>';
                         }
                         echo '</ol>';
-                            echo ' If you want to invite'.$result["artiste_name"].' for a programme or send him a personal message? Fill below form.
+                            echo ' If you want to invite '.ucfirst($row["artiste_name"]).' for a programme or send him a personal message? Fill below form.
                             <form action="message_member.php" method="POST" enctype="text/plain">
                                 Name:<br>
                                 <input type="text" name="name" placeholder="your name" required="required"><br>
@@ -75,7 +76,7 @@
                         while ($result=mysqli_fetch_array($stmt1)) {
                             echo '<a href="'.$result["song_link"].'">'.$result["song_title"].'</a>';
                         }
-                        echo ' If you want to invite'.$result["artiste_name"].' for a programme or send him a personal message? Fill below form.
+                        echo ' If you want to invite '.ucfirst($row["artiste_name"]).' for a programme or send her a personal message? Fill below form.
                             <form action="message_member.php" method="POST" enctype="text/plain">
                                 Name:<br>
                                 <input type="text" name="name" placeholder="your name" required="required"><br>

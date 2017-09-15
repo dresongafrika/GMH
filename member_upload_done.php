@@ -59,9 +59,9 @@ if(isset($_POST['submit'])){
 
     $link='member_songs.php?mem_red_name='.$_POST['art_name'].'&mem_red_song='.$sNAME;
 
-    $query2 = "INSERT INTO `members_songs`(`album_art`, `album_name`, `artiste_id`, `artiste_name`, `song_link`, `song_title`, `lyric`) VALUES (?,?,?,?,?,?,?)";
+    $query2 = "INSERT INTO `members_songs`(`album_art`, `album_name`, `artiste_id`, `artiste_name`, `song_link`, `song_title`, `lyric`,`mp3_name`,`img_base`,`mp3_base`) VALUES (?,?,?,?,?,?,?,?,?,?)";
     $stmt2 = mysqli_prepare ($dbc,$query2);
-    mysqli_stmt_bind_param($stmt2, "ssissss",$img_dir,$album,$id,$_POST['art_name'],$link,$sNAME,$lyric);
+    mysqli_stmt_bind_param($stmt2, "ssisssssss",$img_dir,$album,$id,$_POST['art_name'],$link,$sNAME,$lyric,$target_file,$albumART,$songNAME);
     mysqli_stmt_execute($stmt2);
     mysqli_stmt_close($stmt2);
 

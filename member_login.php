@@ -5,7 +5,7 @@
 
     // Define variables and initialize with empty values
     $username = $password = "";
-    $username_err = $password_err = "";
+     $username_err = $password_err = "";
 
     // Processing form data when form is submitted
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -29,10 +29,9 @@
 
             if($stmt = mysqli_prepare($dbc, $sql)){
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_username);
+                mysqli_stmt_bind_param($stmt, "s", $username);
 
                 // Set parameters
-                $param_username = $username;
 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){

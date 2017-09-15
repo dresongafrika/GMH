@@ -17,14 +17,14 @@ if(!isset($_GET['p'])  || !isset($_GET['u']) || empty($_GET['u']) || !isset($_PO
 
     // Check input errors before inserting in database
     // Prepare an insert statement
-    $query='INSERT INTO members (artiste_id,artiste_name,password,transaction_id,membership_date,expiry_date) VALUES (NULL,?,?,?,NOW(),NOW())';
-    $stmt = mysqli_prepare($dbc, $query);
-    mysqli_stmt_bind_param($stmt,'sss', $oruko,$ikoko,$transaction_id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+    $query1='INSERT INTO `members`(`artiste_id`, `artiste_name`,`password`,`transaction_id`, `membership_date`,`expiry_date`) VALUES (NULL,?,?,?,NOW(),NOW())';
+    $stmt1 = mysqli_prepare($dbc, $query1);
+    mysqli_stmt_bind_param($stmt1,'sss', $oruko,$ikoko,$transaction_id);
+    mysqli_stmt_execute($stmt1);
+    mysqli_stmt_close($stmt1);
 
-    $query='DELETE FROM tmp_member WHERE artiste_name = "'.$oruko.'"';
-    $stmt=mysqli_query($dbc,$query);
+    $query3='DELETE FROM tmp_member WHERE artiste_name = "'.$oruko.'"';
+    $stmt3=mysqli_query($dbc,$query3);
 
 // Set parameters
     $param_username = $uName;

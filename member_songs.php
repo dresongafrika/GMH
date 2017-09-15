@@ -11,7 +11,7 @@
             $lyric_target='members/'.$artiste_name.'/lyrics/';
             $sNAME=$row["song_title"];
             $aNAME=$row["artiste_name"];
-            if(empty($row["album_name"])){
+            if(!empty($row["album_name"])){
                 echo '<h2>'.$row["song_title"]. ' by ' .$row["artiste_name"].'</h2> from the album '.$row["album_name"];
                 echo '<h3>BIO</h3>';
                 $cwd=getcwd();
@@ -30,6 +30,11 @@
                 $read_lyrics = fopen($lyric_target.$sNAME. " by " .$aNAME.".txt", "r");
                 echo fread($read_lyrics,filesize($lyric_target.$sNAME. " by " .$aNAME.".txt"));
                 fclose($read_lyrics);
+                echo '<form action="force_download_promo.php" method="post">
+                <input type="hidden" name="file_name" value="'.$row["mp3_name"].'"/>
+                <input type="submit" value="DOWNLOAD NOW"/>
+              </form>';
+
             }else{
                 echo '<h2>'.$row["song_title"]. ' by ' .$row["artiste_name"].'</h2>';
                 echo '<h3>BIO</h3>';

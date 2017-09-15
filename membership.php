@@ -1,5 +1,6 @@
 <?php require ('top.php'); ?>
 <section id="main">
+    <div>
         <h1>What do you stand to gain when you join our artistes community?</h1>
         With a one-time payment of $20 for a year, you have access to:
         <ol>
@@ -19,9 +20,9 @@
         <p>2. The above benefits are subject to constant reviews at the discretion of the admin.</p>
         <p>1. Gospel Music Hotspot does not verify ownership, Please ensure the songs you upload are yours and that they are properly tagged with the appropriate metadata. <br/>
             In cases of dispute over song ownership, court injunctions would be respected and we are not to be held liable for any loss incured neither would there be a refund.</p>
+    </div>
 
-        <h2>Register now</h2>
-
+    <h2>Register now</h2>
 <?php
             // Define variables and initialize with empty values
           $username_hash=$param_password=$uName=$pWord=$confirm_password="";
@@ -71,6 +72,24 @@
                                 mysqli_stmt_execute($stmt);
 
                                 mysqli_stmt_close($stmt);
+                     echo'           
+                        <div id="pay">
+                            Please proceed to pay.
+                        <i class="fa fa-cc-discover" ></i><i class="fa fa-cc-visa"></i><i class="fa fa-cc-mastercard"></i><i class="fa fa-cc-paypal"></i></br>
+                        <form method="POST" action="https://voguepay.com/pay/">
+                            <input type="hidden" name="v_merchant_id" value="demo" />
+                            <input type="hidden" name="memo" value="payment for promotional song upload" />
+                            <input type="hidden" name="success_url" value="http://www.gospelmusichotspot.com/member_create.php?p=yes&u='.$uName.'" />
+                            <input type="hidden" name="fail_url" value="http://www.gospelmusichotspot.com/member_create.php?pay=no" />
+							<input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/member_create.php?p=yes&u='.$uName.'" />
+                            <input type="hidden" name="cur" value="NGN" />
+                            <input type="hidden" name="item_1" value="upload" />
+                            <input type="hidden" name="developer_code" value="599a05bc1e8d3" />
+                            <input type="hidden" name="total" value="10000" />
+                            <input type="hidden" name="description_1" value="" /><br />
+                            <input type="image" src="https://voguepay.com/images/buttons/make_payment_blue.png" alt="PAY WITH YOUR CREDIT/DEBIT CARD" />
+                        </form>
+                    </div>';
 
                             }
                         }
@@ -103,23 +122,6 @@
                     
                     </form>';
                 ?>
-                    <div id="pay">
-                        <form method="POST" action="https://voguepay.com/pay/">
-                            Please proceed to pay.
-                            <input type="hidden" name="v_merchant_id" value="demo" />
-                            <input type="hidden" name="memo" value="payment for promotional song upload" />
-                            <input type="hidden" name="success_url" value="http://www.gospelmusichotspot.com/member_create.php?p=yes&u=<?php echo $uName ; ?>" />
-                            <input type="hidden" name="fail_url" value="http://www.gospelmusichotspot.com/member_create.php?pay=no" />
-							<input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/member_create.php?p=yes&u=<?php echo $uName ; ?>" />
-                            <input type="hidden" name="cur" value="NGN" />
-                            <input type="hidden" name="item_1" value="upload" />
-                            <input type="hidden" name="developer_code" value="599a05bc1e8d3" />
-                            <input type="hidden" name="total" value="10000" />
-                            <input type="hidden" name="description_1" value="" /><br />
-                            <input type="image" src="https://voguepay.com/images/buttons/make_payment_blue.png" alt="PAY WITH YOUR CREDIT/DEBIT CARD" />
-                        </form>
-                        <i class="fa fa-cc-discover" ></i><i class="fa fa-cc-visa"></i><i class="fa fa-cc-mastercard"></i><i class="fa fa-cc-paypal"></i></br>
-                    </div>
     <p>Already have an account? <a href="member_login.php">Login here</a>.</p>
 </section>
 <?php require ('bottom.php') ?>
