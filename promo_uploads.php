@@ -1,9 +1,10 @@
 <?php require ('top.php') ?>
 <section id="main">
 <?php
-    if (isset ($_GET['redirect'])){
+    if (isset ($_GET['redirect']) && isset($_GET['title'])){
         $redirect = $_GET['redirect'];
-        $query = "SELECT * FROM music_promotion WHERE artiste_name='".$redirect."'";
+        $title=$_GET['title'];
+        $query = "SELECT * FROM music_promotion WHERE artiste_name='".$redirect."' AND song_title='".$_GET['title']."'";
         $stmt = mysqli_query ($dbc,$query);
         $row=mysqli_fetch_array($stmt);
         $bio_target="promotions/biographies/";
@@ -22,8 +23,8 @@
                     <source src="' . $row["song_link"] . '" type="audio/mp3"/>
                     Your browser does not support the audio element.
                 </audio></br>';
-        echo '<form action="force_download_promo.php" method="post">
-                <input type="hidden" name="file_name" value="'.$row["mp3_name"].'"/>
+        echo '<form action="force_download.php" method="post">
+                <input type="hidden" name="file_name" value="'.$row["song_link"].'"/>
                 <input type="submit" value="DOWNLOAD NOW"/>
               </form>';
         echo '<h3>Lyrics</h3></br>';
@@ -33,7 +34,7 @@
         fclose($read_lyrics);
         echo '</div>';
 
- echo'       <div class="fb-share-button" data-href="http://www.gospelmusichotspot.com/member_uploads.php?redirect='.$aNAME.'" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.gospelmusichotspot.com%2Fmember.php%3Fredirect%3Djaphet&amp;src=sdkpreparse">Share</a></div>';
+ echo'       <div class="fb-share-button" data-href="http://www.gospelmusichotspot.com/promo_uploads.php?redirect='.$aNAME.'" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.gospelmusichotspot.com%2Fmember.php%3Fredirect%3Djaphet&amp;src=sdkpreparse">Share</a></div>';
     }
     ?>
 </section>

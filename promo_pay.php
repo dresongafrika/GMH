@@ -2,8 +2,8 @@
 
 <section id="main">
 <?php
-if (isset($_GET['pay']) && isset($_GET['name']) && isset($_POST['transaction_id'])) {
-    $query = 'SELECT * FROM tmp_promo WHERE artiste_name="'.$_GET['name'].'"';
+if (isset($_GET['pay']) && isset($_GET['name']) && isset($_GET['title']) && isset($_POST['transaction_id'])) {
+    $query = 'SELECT * FROM tmp_promo WHERE artiste_name="'.$_GET['name'].'" AND song_title="'.$_GET['title'].'"';
     $stmt = mysqli_query($dbc, $query);
     $row=mysqli_fetch_array($stmt);
     $aNAME=$_GET['name'];
@@ -28,10 +28,14 @@ if (isset($_GET['pay']) && isset($_GET['name']) && isset($_POST['transaction_id'
     mysqli_stmt_close($stmt2);
 
 
-    $query3 = 'SELECT * FROM music_promotion WHERE artiste_name="'.$aNAME.'"';
+    $query3 = 'SELECT * FROM music_promotion WHERE artiste_name="'.$aNAME.'" AND phone="'.$phone.'"';
     $stmt3 = mysqli_query ($dbc,$query3);
     $row3=mysqli_fetch_array($stmt3);
-    echo 'Here is the link to your song: <a href="promo_uploads.php?redirect='.$row3["artiste_name"].'">promo_uploads.php?redirect='.$row3["artiste_name"].'</a> ';
+
+    $query4='DELETE FROM tmp_promo WHERE artiste_name="'.$aNAME.'" AND phone="'.$phone.'"';
+    $stmt4=mysqli_query($dbc,$query4);
+
+    echo 'Here is the link to your song: <a href="promo_uploads.php?redirect='.$aNAME.'&title='.$sNAME.'">promo_uploads.php?redirect='.$aNAME.'&title='.$sNAME.'</a> ';
 
 
 }else{

@@ -30,8 +30,8 @@
                 $read_lyrics = fopen($lyric_target.$sNAME. " by " .$aNAME.".txt", "r");
                 echo fread($read_lyrics,filesize($lyric_target.$sNAME. " by " .$aNAME.".txt"));
                 fclose($read_lyrics);
-                echo '<form action="force_download_promo.php" method="post">
-                <input type="hidden" name="file_name" value="'.$row["mp3_name"].'"/>
+                echo '<form action="force_download.php" method="post">
+                <input type="hidden" name="file_name" value="'.$row["song_link"].'"/>
                 <input type="submit" value="DOWNLOAD NOW"/>
               </form>';
 
@@ -54,8 +54,15 @@
                 $read_lyrics = fopen("$lyric_target$sNAME by $aNAME.txt", "r");
                 echo fread($read_lyrics,filesize("$lyric_target$sNAME by $aNAME.txt"));
                 fclose($read_lyrics);
+                echo '<form action="force_download.php" method="post">
+                <input type="hidden" name="file_name" value="'.$row["song_link"].'"/>
+                <input type="submit" value="DOWNLOAD NOW"/>
+              </form>';
             }
+            echo'       <div class="fb-share-button" data-href="http://www.gospelmusichotspot.com/member_songs.php?redirect='.$artiste_name.'" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.gospelmusichotspot.com%2Fmember.php%3Fredirect%3Djaphet&amp;src=sdkpreparse">Share</a></div>';
         }
+
     ?>
+
 </section>
 <?php require ('bottom.php') ?>

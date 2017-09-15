@@ -48,9 +48,9 @@
                     echo      '        <form method="POST" action="https://voguepay.com/pay/">
                 <input type="hidden" name="v_merchant_id" value="demo" />
                 <input type="hidden" name="memo" value="payment for promotional song upload" />
-                <input type="hidden" name="success_url" value="http://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'" />
+                <input type="hidden" name="success_url" value="http://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'&title='.$sNAME.'" />
                 <input type="hidden" name="fail_url" value="http://www.gospelmusichotspot.com/promo_pay.php?pay=no" />
-                <input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'"/>
+                <input type="hidden" name="notify_url" value="http://www.gospelmusichotspot.com/promo_pay.php?pay=yes&name='.$aNAME.'&title='.$sNAME.'"/>
                 <input type="hidden" name="cur" value="NGN" />
                 <input type="hidden" name="item_1" value="upload" />
                 <input type="hidden" name="developer_code" value="599a05bc1e8d3" />

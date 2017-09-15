@@ -10,7 +10,7 @@
                         <img class="pix" src="'.$row["album_art"].'" alt="'.$row["song_title"].' by '.$row["artiste_name"].'" />
                         <figcaption id="caption">'.$row["song_title"].'</br>by</br> '.$row["artiste_name"].'.</figcaption>
                      </figure class=" album">
-                     <a href="promo_uploads.php?redirect='.$row["artiste_name"].'" target="_blank" id="download_link">Download/Play online</a>
+                     <a href="promo_uploads.php?redirect='.$row["artiste_name"].'&title='.$row["song_title"].'" target="_blank" id="download_link">Download/Play online</a>
                   </div>';
     }
     ?>
