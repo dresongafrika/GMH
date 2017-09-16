@@ -46,6 +46,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="form-group">
             <label>Tell us about yourself:<sup>*</sup></label>';
+        echo $row['profile_pix'];
         $param_username = $_POST['uname'];
         $cwd = getcwd();
         $structure1 = $cwd . "/members/" . $param_username;

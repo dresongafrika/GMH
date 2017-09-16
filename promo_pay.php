@@ -35,7 +35,7 @@ if (isset($_GET['pay']) && isset($_GET['name']) && isset($_GET['title']) && isse
     $query4='DELETE FROM tmp_promo WHERE artiste_name="'.$aNAME.'" AND phone="'.$phone.'"';
     $stmt4=mysqli_query($dbc,$query4);
 
-    echo 'Here is the link to your song: <a href="promo_uploads.php?redirect='.$aNAME.'&title='.$sNAME.'">promo_uploads.php?redirect='.$aNAME.'&title='.$sNAME.'</a> ';
+    echo 'Here is the link to your song: <a href="promo_uploads.php?redirect='.$aNAME.'&title='.$sNAME.'">promo_uploads.php?redirect='.$aNAME.'&title='.$sNAME.' </a> ';
 
 
 }else{

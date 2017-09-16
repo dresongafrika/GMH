@@ -4,7 +4,6 @@
 
     if(isset($_POST["submit"])){
 
-
         $edit_name=$_POST["uname"];
 
 

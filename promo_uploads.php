@@ -2,9 +2,8 @@
 <section id="main">
 <?php
     if (isset ($_GET['redirect']) && isset($_GET['title'])){
-        $redirect = $_GET['redirect'];
         $title=$_GET['title'];
-        $query = "SELECT * FROM music_promotion WHERE artiste_name='".$redirect."' AND song_title='".$_GET['title']."'";
+        $query = "SELECT * FROM music_promotion WHERE artiste_name='".$_GET['redirect']."' AND song_title='".$_GET['title']."'";
         $stmt = mysqli_query ($dbc,$query);
         $row=mysqli_fetch_array($stmt);
         $bio_target="promotions/biographies/";

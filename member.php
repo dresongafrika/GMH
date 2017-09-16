@@ -55,8 +55,7 @@ require ("top.php");
 
 
     <a href="member_upload.php?username=<?php echo $_SESSION["artiste_name"]; ?>"><h1>Click here to upload a new song for free.</h1></a>
-    <?php  echo '<a href="promotions.php?member_promo='.$_SESSION["artiste_name"].' "><h1>Click here if you would like to promote any of your unuploaded songs at 50% discount</h1></a>' ?>
-    <?php  echo '<a href="adverts.php?member_promo='.$_SESSION["artiste_name"].' "><h1>Would you like to advertise your worship meeting at a discount on our homepage?, If Yes, Click here</h1></a>' ?>
+    <?php  echo '<a href="adverts_pass.php?member_promo='.$_SESSION["artiste_name"].' "><h1>Would you like to advertise your worship meeting at a discount on our homepage?, If Yes, Click here</h1></a>' ?>
 
     <h4>Your fans have something to tell you!</h4>
     <?php
