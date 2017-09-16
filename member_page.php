@@ -7,8 +7,8 @@
             $stmt = mysqli_query ($dbc,$query);
             $row=mysqli_fetch_array($stmt);
                     if ($row["sex"]=="MALE"){
-                        echo "<b>Welcome to ".$row['artiste_name']."'s page.</b></br>
-                        Here you can find everything you need to know about ".$row['artiste_name'].", download all his songs and lyrics.</br>
+                        echo "<b>Welcome to ".ucfirst($row['artiste_name'])."'s page.</b></br>
+                        Here you can find everything you need to know about ".ucfirst($row['artiste_name']).", download all his songs and lyrics.</br>
                         <h5>BIOGRAPHY</h5></br>";
                         echo '<img class="profile_pix" src="' . $row["profile_pix"] . '" alt="' . $row["artiste_name"] . ' \'s pix" /></img>';
                         echo '
@@ -27,7 +27,7 @@
                         facebook url: <a target="_blank" href="'.$row["fb_link"].'">'.$row["fb_link"].'</a></br>
                         twitter url: <a target="_blank" href="'.$row["twitter_link"].'">'.$row["twitter_link"].'</a></br>
                         <h5>DISCOGRAPHY</h5></br>
-                        Below is a list of all songs by '.$row["artiste_name"].'. Click to download/Listen online:</br>';
+                        Below is a list of all songs by '.ucfirst($row['artiste_name']).'. Click to download/Listen online:</br>';
                         $query1 = 'SELECT * FROM members_songs WHERE artiste_name="'.$row["artiste_name"].'"';
                         $stmt1 = mysqli_query ($dbc,$query1);
                         echo '<ol>';
@@ -35,8 +35,8 @@
                             echo '<li><a href="'.$result["song_link"].'">'.$result["song_title"].' from the album '.$result["album_name"].'.</a></li>';
                         }
                         echo '</ol>';
-                            echo ' If you want to invite '.ucfirst($row["artiste_name"]).' for a programme or send him a personal message? Fill below form.
-                            <form action="message_member.php" method="POST" enctype="text/plain">
+                            echo ' If you want to invite '.ucfirst($row["artiste_name"]).' for a programme, you can send him a personal message here. Fill the form below.
+                            <form enctype="multipart/form-data" action="message_member.php" method="POST" >
                                 Name:<br>
                                 <input type="text" name="name" placeholder="your name" required="required"><br>
                                 Phone number:<br>
@@ -45,14 +45,14 @@
                                 <input type="email" name="mail" placeholder="youremail@website.com" required="required"><br>
                                             Subject:<br>
                                 <input type="text" name="subject" placeholder="your name" required="required"><br>
-                                <input type="hidden" name="artiste_name"  value="'.$result["artiste_name"].'"><br>
+                                <input type="hidden" name="artiste_name"  value="'.$row['artiste_name'].'"><br>
                                             Your message:<br>
                                 <textarea name="message" rows="4" cols="50" placeholder="Your message goes here" required="required"></textarea><br>
                                 <input type="submit" value="SEND MESSAGE" name="submit">
                             </form>';
                     }else{
-                    echo "<b>Welcome to ".$row['artiste_name']."'s page.</b></br>
-                    Here you can find everything you need to know about ".$row['artiste_name'].", download all her songs and lyrics.</br>
+                    echo "<b>Welcome to ".ucfirst($row['artiste_name'])."'s page.</b></br>
+                    Here you can find everything you need to know about ".ucfirst($row['artiste_name']).", download all her songs and lyrics.</br>
                     <h5>BIOGRAPHY</h5></br>";
                         echo '
                     Full Name: '.$row["first_name"].' '.$row["last_name"].'</br>
@@ -70,14 +70,14 @@
                         facebook url: <a target="_blank" href="'.$row["fb_link"].'">'.$row["fb_link"].'</a></br>
                         twitter url: <a target="_blank" href="'.$row["twitter_link"].'">'.$row["twitter_link"].'</a></br>
                     <h5>DISCOGRAPHY</h5></br>
-                    Below is a list of songs by '.$row["artiste_name"].'. Click to download/Listen online:</br>';
+                    Below is a list of songs by '.ucfirst($row['artiste_name']).'. Click to download/Listen online:</br>';
                         $query1 = 'SELECT * FROM members_songs WHERE artiste_name="'.$row["artiste_name"].'"';
                         $stmt1 = mysqli_query ($dbc,$query1);
                         while ($result=mysqli_fetch_array($stmt1)) {
                             echo '<a href="'.$result["song_link"].'">'.$result["song_title"].'</a>';
                         }
                         echo ' If you want to invite '.ucfirst($row["artiste_name"]).' for a programme or send her a personal message? Fill below form.
-                            <form action="message_member.php" method="POST" enctype="text/plain">
+                            <form enctype="multipart/form-data" action="message_member.php" method="POST" >
                                 Name:<br>
                                 <input type="text" name="name" placeholder="your name" required="required"><br>
                                 Phone number:<br>
@@ -86,7 +86,7 @@
                                 <input type="email" name="mail" placeholder="youremail@website.com" required="required"><br>
                                             Subject:<br>
                                 <input type="text" name="subject" placeholder="your name" required="required"><br>
-                                <input type="hidden" name="artiste_name"  value="'.$result["artiste_name"].'"><br>
+                                <input type="hidden" name="artiste_name"  value="'.$row['artiste_name'].'"><br>
                                             Your message:<br>
                                 <textarea name="message" rows="4" cols="50" placeholder="Your message goes here" required="required"></textarea><br>
                                 <input type="submit" value="SEND MESSAGE" name="submit">

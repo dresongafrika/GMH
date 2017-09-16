@@ -41,7 +41,7 @@ require ("top.php");
         ?>
 
     <?php
-    echo '<h4>'.$param_username.',here is a list of all your songs on our database, click any to promote it on the front page!</h4>';
+    echo '<h2>'.ucfirst($param_username).',here is a list of all your songs on our database, click any to promote it on the front page!</h2>';
     $query = 'SELECT song_title FROM members_songs WHERE artiste_name="'.$param_username.'" ORDER BY song_title ASC';
     $stmt = mysqli_query ($dbc,$query);
     echo '<ol>';
@@ -63,8 +63,8 @@ require ("top.php");
     $stmt = mysqli_query ($dbc,$query);
     while ($row=mysqli_fetch_array($stmt)) {
             echo '<div class="fan_messages">';
-            $read_message=fopen($row["message_link"].'.txt',"r");
-            echo fread($read_message,filesize($row["message_link"].'.txt'));
+            $read_message=fopen($row["message_link"],"r");
+            echo fread($read_message,filesize($row["message_link"]));
             fclose($read_message);
             echo '</div>';
         }
